@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Shop } from './services';
+import { Item } from './domain';
 import logo from './logo.svg';
 import './App.css';
-import { Shop } from './services';
+
+function mapStateToProps(state: any) {
+  return {
+    itemTypes: state.itemTypes,
+    items: state.items
+  }
+}
 
 class App extends Component {
   private _shop: Shop;
@@ -9,10 +18,7 @@ class App extends Component {
   constructor(props: any) {
     super(props);
 
-    this._shop = new Shop(
-      [{ code: 'fruit' }],
-      [{ code: 'banana', price: 10, typeCode: 'fruit' }]
-    );
+    this._shop = new Shop(props.itemTypes, props.items);
   }
 
   render() {
@@ -31,17 +37,13 @@ class App extends Component {
           >
             Learn React
           </a>
-          <p>
-          {
-            this._shop.getItem('banana')
-              ? this._shop.getItem('banana').code
-              : 'no banana'
-          }
-          </p>
+          <ul>
+            { this._shop.items.map((item: Item) => <li key={item.code}>{item.code}</li>) }
+          </ul>
         </header>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(mapStateToProps, null)(App);
