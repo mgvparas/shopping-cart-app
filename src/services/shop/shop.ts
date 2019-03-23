@@ -1,6 +1,6 @@
-﻿import { Coupon, CouponType, Money, Item, ItemType, Percent } from '../domain';
-import { CouponDto, ItemDto, ItemTypeDto, ShoppingItem } from '../dtos';
-import { CouponCoverage } from '../enums';
+﻿import { Coupon, CouponType, Money, Item, ItemType, Percent } from '../../domain';
+import { CouponDto, ItemDto, ItemTypeDto, ShoppingItem } from '../../dtos';
+import { CouponCoverage } from '../../enums';
 
 class Shop {
   private _items: Item[] = [];

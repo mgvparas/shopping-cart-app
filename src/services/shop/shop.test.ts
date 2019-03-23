@@ -1,5 +1,5 @@
 ﻿import 'jest';
-import { Shop } from '../';
+import { Shop } from '..';
 import { CouponDto, ItemDto, ItemTypeDto, ShoppingItem } from '../../dtos';
 import { Item, Money, Percent } from '../../domain';
 import { CouponCoverage } from '../../enums';
