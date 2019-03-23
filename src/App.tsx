@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Shop } from './services';
 
 class App extends Component {
+  private _shop: Shop;
+
+  constructor(props: any) {
+    super(props);
+
+    this._shop = new Shop(
+      [{ code: 'fruit' }],
+      [{ code: 'banana', price: 10, typeCode: 'fruit' }]
+    );
+  }
+
   render() {
     return (
       <div className="App">
@@ -19,6 +31,13 @@ class App extends Component {
           >
             Learn React
           </a>
+          <p>
+          {
+            this._shop.getItem('banana')
+              ? this._shop.getItem('banana').code
+              : 'no banana'
+          }
+          </p>
         </header>
       </div>
     );
