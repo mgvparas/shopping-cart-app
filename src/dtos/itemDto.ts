@@ -1,6 +1,6 @@
 ﻿type ItemDto = {
-  code?: string,
-  price?: number,
+  code: string,
+  price: number,
   typeCode: string
 }
 

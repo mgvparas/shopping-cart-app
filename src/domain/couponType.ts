@@ -1,4 +1,4 @@
-﻿import { ItemType } from '../domain';
+﻿import { ItemType } from '.';
 import { CouponCoverage } from '../enums';
 
 class CouponType {

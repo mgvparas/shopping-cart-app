@@ -1,4 +1,4 @@
-﻿import { CouponType, Percent } from './';
+﻿import { CouponType, Percent } from '.';
 
 class Coupon {
   private _code: string;

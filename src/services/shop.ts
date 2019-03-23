@@ -13,22 +13,16 @@ class Shop {
     );
 
     this._items = itemDtos.map((itemDto: ItemDto): Item => {
-      let matchingItemType: ItemType = null;
-      for (const itemType of this._itemTypes) {
-        if (itemType.code === itemDto.typeCode) {
-          matchingItemType = itemType;
-        }
-      }
+      const matchingItemType: ItemType | undefined = this._itemTypes
+        .find((itemType: ItemType) => itemType.code === itemDto.typeCode);
 
-      if (matchingItemType !== null) {
-        return new Item(
-          itemDto.code,
-          new Money(itemDto.price),
-          matchingItemType
-        );
-      } else {
-        throw new Error(`Unable to find item type with code: ${itemDto.typeCode}`)
-      }
+      if (!matchingItemType) throw new Error(`Item Type with code ${itemDto.typeCode} not found.`);
+
+      return new Item(
+        itemDto.code,
+        new Money(itemDto.price),
+        matchingItemType || new ItemType('TEST')
+      );
     });
   }
 
@@ -52,17 +46,9 @@ class Shop {
   }
 
   public getItem(code: string): Item {
-    let itemMatch: Item;
+    const itemMatch: Item | undefined = this._items.find((item: Item) => item.code === code);
 
-    for (const item of this._items) {
-      if (item.code === code) {
-        itemMatch = item;
-      }
-    }
-
-    if (!itemMatch) {
-      throw new Error(`Unable to find item with code: ${code}`);
-    }
+    if (!itemMatch) throw new Error(`Item with code ${code} not found.`);
 
     return itemMatch;
   }
@@ -72,13 +58,11 @@ class Shop {
       let couponType: CouponType;
 
       if (couponDto.coverage === CouponCoverage.perItemType) {
-        let matchingItemType: ItemType = null;
 
-        for (const itemType of this._itemTypes) {
-          if (itemType.code === couponDto.itemTypeCode) {
-            matchingItemType = itemType;
-          }
-        }
+        const matchingItemType: ItemType | undefined = this._itemTypes
+          .find((itemType: ItemType) => itemType.code === couponDto.itemTypeCode);
+
+        if (!matchingItemType) throw new Error(`Item Type with code ${couponDto.itemTypeCode} not found.`);
 
         couponType = CouponType.perItemType(matchingItemType);
       } else {
@@ -94,17 +78,21 @@ class Shop {
   }
 
   private applyCoupon(couponCode: string): void {
-    for (const coupon of this._coupons) {
-      if (coupon.code === couponCode) {
-        let items: Item[] = this._items;
-        if (coupon.type.coverage === CouponCoverage.perItemType) {
-          items = this._items.filter((item: Item) => item.type.code == coupon.type.itemType.code);
-        }
+    const matchingCoupon: Coupon | undefined = this._coupons.find((coupon: Coupon) => coupon.code === couponCode);
 
-        for (let item of items) {
-          item.setDiscountPercentage(coupon.discountPercentage);
-        }
-      }
+    if (!matchingCoupon) throw new Error(`Coupon with code ${couponCode} not found.`);
+
+    let items: Item[] = this._items;
+    if (matchingCoupon.type.coverage === CouponCoverage.perItemType) {
+      const itemType: ItemType | undefined = matchingCoupon.type.itemType;
+
+      if (!itemType) throw new Error('Per Item Type coupons must have an Item Type');
+
+      items = this._items.filter((item: Item) => item.type.code == itemType.code);
+    }
+
+    for (let item of items) {
+      item.setDiscountPercentage(matchingCoupon.discountPercentage);
     }
   }
 }

@@ -1,6 +1,6 @@
 ﻿type ShoppingItem = {
-  code?: string,
-  quantity?: number
+  code: string,
+  quantity: number
 }
 
 export default ShoppingItem;

@@ -1,4 +1,4 @@
-﻿import { ItemType, Money, Percent } from './';
+﻿import { ItemType, Money, Percent } from '.';
 
 class Item {
   private _code: string;

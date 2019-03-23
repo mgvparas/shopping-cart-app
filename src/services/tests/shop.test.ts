@@ -1,21 +1,21 @@
 ﻿import 'jest';
-import { Shop } from '..';
+import { Shop } from '../';
 import { CouponDto, ItemDto, ItemTypeDto, ShoppingItem } from '../../dtos';
 import { Item, Money, Percent } from '../../domain';
 import { CouponCoverage } from '../../enums';
 
 test('shop contains at least 10 items', () => {
   const itemDtos: ItemDto[] = [
-    { code: 'a', typeCode: 'alphabet' },
-    { code: 'b', typeCode: 'alphabet' },
-    { code: 'c', typeCode: 'alphabet' },
-    { code: 'd', typeCode: 'alphabet' },
-    { code: 'e', typeCode: 'alphabet' },
-    { code: 'f', typeCode: 'alphabet' },
-    { code: 'g', typeCode: 'alphabet' },
-    { code: 'h', typeCode: 'alphabet' },
-    { code: 'i', typeCode: 'alphabet' },
-    { code: 'j', typeCode: 'alphabet' }
+    { code: 'a', typeCode: 'alphabet', price: 0 },
+    { code: 'b', typeCode: 'alphabet', price: 0 },
+    { code: 'c', typeCode: 'alphabet', price: 0 },
+    { code: 'd', typeCode: 'alphabet', price: 0 },
+    { code: 'e', typeCode: 'alphabet', price: 0 },
+    { code: 'f', typeCode: 'alphabet', price: 0 },
+    { code: 'g', typeCode: 'alphabet', price: 0 },
+    { code: 'h', typeCode: 'alphabet', price: 0 },
+    { code: 'i', typeCode: 'alphabet', price: 0 },
+    { code: 'j', typeCode: 'alphabet', price: 0 }
   ];
 
   const shop = new Shop([{ code: 'alphabet' }], itemDtos);
