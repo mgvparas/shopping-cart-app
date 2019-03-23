@@ -28,6 +28,8 @@ class Shop {
 
   public get items(): Item[] { return this._items; }
 
+  public get itemTypes(): ItemType[] { return this._itemTypes; }
+
   public getTotalCost(shoppingItems: ShoppingItem[], couponCode?: string): number {
     if (couponCode) {
       this.applyCoupon(couponCode);
