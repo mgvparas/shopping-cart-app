@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Item, ItemType } from '../../domain';
 import { NumberInput, TextInput } from '../';
-import { AppProps } from './App.props';
-import { ItemTypeDto } from '../../dtos';
+import { ItemTypeDto, ItemDto } from '../../dtos';
 
 class App extends Component {
   private _itemTypeDto: ItemTypeDto = { code: '' };
+  private _itemDto: ItemDto = { code: '', price: 0, typeCode: '' };
 
-  constructor(props: any) {
+  constructor(props: any) { //TODO: Use AppProps type
     super(props);
     this.handleItemTypeFieldChange = this.handleItemTypeFieldChange.bind(this);
 
@@ -21,7 +21,7 @@ class App extends Component {
   }
 
   render() {
-    const { addItemType, items, itemTypes }: any = this.props;
+    const { addItem, addItemType, items, itemTypes }: any = this.props;
 
     return (
       <div className='App'>
@@ -33,7 +33,7 @@ class App extends Component {
           </thead>
           <tbody>
             <tr>
-              <td><TextInput name="code" onChange={this.handleItemTypeFieldChange}/></td>
+              <td><TextInput name="code" onChange={(event) => this._itemTypeDto.code = event.target.value}/></td>
               <td>
                 <input
                   type="button"
@@ -62,14 +62,15 @@ class App extends Component {
           </thead>
           <tbody>
             <tr>
-              <td><TextInput name="code"/></td>
-              <td><NumberInput name="price"/></td>
-              <td><TextInput name="type"/></td>
+              <td><TextInput name="code" onChange={(event) => this._itemDto.code = event.target.value}/></td>
+              <td><NumberInput name="price" onChange={(event) => this._itemDto.price = +event.target.value}/></td>
+              <td><TextInput name="type" onChange={(event) => this._itemDto.typeCode = event.target.value}/></td>
               <td>
                 <input
                   type="button"
                   value="Add Item"
                   required
+                  onClick={() => addItem(this._itemDto)}
                 />
               </td>
             </tr>

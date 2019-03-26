@@ -8,7 +8,7 @@ const logger = (store: { getState: () => void; }) => (next: (action: any) => voi
   let result = next(action)
   console.log('next state', store.getState())
   return result;
-}
+};
 
 const shop = new Shop(
   [

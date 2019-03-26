@@ -1,12 +1,12 @@
-import { ItemTypeDto } from '../../dtos';
+import { ItemType } from '../../domain';
 
 const namespace = 'ITEM_TYPE';
 
 export const SET = `${namespace}_SET`;
-export function set(itemTypeDtos: ItemTypeDto[]) {
+export function set(itemTypes: ItemType[]) {
   return {
     type: SET,
-    payload: itemTypeDtos
+    payload: itemTypes
   };
 }
 

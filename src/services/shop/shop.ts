@@ -16,7 +16,7 @@ class Shop {
       const matchingItemType: ItemType | undefined = this._itemTypes
         .find((itemType: ItemType) => itemType.code === itemDto.typeCode);
 
-      if (!matchingItemType) throw new Error(`Item Type with code ${itemDto.typeCode} not found.`);
+      if (!matchingItemType) throw new Error(`Item Type with code "${itemDto.typeCode}" not found.`);
 
       return new Item(
         itemDto.code,
@@ -32,6 +32,21 @@ class Shop {
 
   public addItemType(itemTypeDto: ItemTypeDto) {
     this._itemTypes.push(new ItemType(itemTypeDto.code));
+  }
+
+  public addItem(itemDto: ItemDto) {
+    const matchingItemType: ItemType | undefined = this._itemTypes
+      .find((itemType: ItemType) => itemType.code === itemDto.typeCode);
+
+    if (!matchingItemType) throw new Error(`Item Type with code "${itemDto.typeCode}" not found.`);
+
+    this._items.push(
+      new Item(
+        itemDto.code,
+        new Money(itemDto.price),
+        matchingItemType
+      )
+    );
   }
 
   public getTotalCost(shoppingItems: ShoppingItem[], couponCode?: string): number {
@@ -54,7 +69,7 @@ class Shop {
   public getItem(code: string): Item {
     const itemMatch: Item | undefined = this._items.find((item: Item) => item.code === code);
 
-    if (!itemMatch) throw new Error(`Item with code ${code} not found.`);
+    if (!itemMatch) throw new Error(`Item with code "${code}" not found.`);
 
     return itemMatch;
   }
@@ -68,7 +83,7 @@ class Shop {
         const matchingItemType: ItemType | undefined = this._itemTypes
           .find((itemType: ItemType) => itemType.code === couponDto.itemTypeCode);
 
-        if (!matchingItemType) throw new Error(`Item Type with code ${couponDto.itemTypeCode} not found.`);
+        if (!matchingItemType) throw new Error(`Item Type with code "${couponDto.itemTypeCode}" not found.`);
 
         couponType = CouponType.perItemType(matchingItemType);
       } else {
@@ -86,7 +101,7 @@ class Shop {
   private applyCoupon(couponCode: string): void {
     const matchingCoupon: Coupon | undefined = this._coupons.find((coupon: Coupon) => coupon.code === couponCode);
 
-    if (!matchingCoupon) throw new Error(`Coupon with code ${couponCode} not found.`);
+    if (!matchingCoupon) throw new Error(`Coupon with code "${couponCode}" not found.`);
 
     let items: Item[] = this._items;
     if (matchingCoupon.type.coverage === CouponCoverage.perItemType) {

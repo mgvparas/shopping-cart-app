@@ -4,15 +4,15 @@ import { shopActions } from '../../state/serviceActions';
 
 function mapStateToProps(state: any) {
   return {
-    itemTypes: state.itemTypes,
-    items: state.items
+    items: state.items,
+    itemTypes: state.itemTypes
   };
 }
 
 function mapDispatchToProps(dispatch: any) {
   return {
     addItem(itemDto: ItemDto) {
-      console.log(itemDto);
+      dispatch(shopActions.addItem(itemDto));
     },
     addItemType(itemTypeDto: ItemTypeDto) {
       dispatch(shopActions.addItemType(itemTypeDto));
