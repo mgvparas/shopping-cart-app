@@ -1,10 +1,6 @@
 import { ItemDto } from '../../dtos';
 
-const initialState: ItemDto[] = [
-  { code: 'banana', price: 50, typeCode: 'fruit' },
-  { code: 'potato', price: 50, typeCode: 'vegetable' },
-  { code: 'bacon', price: 50, typeCode: 'meat' },
-];
+const initialState: ItemDto[] = [];
 
 export default function(state = initialState, action: any) {
   switch (action.type) {

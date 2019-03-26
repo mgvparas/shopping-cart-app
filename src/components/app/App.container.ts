@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { ItemDto, ItemTypeDto } from '../../dtos';
-import { itemTypeActions } from '../../state/actions';
+import { shopActions } from '../../state/serviceActions';
 
 function mapStateToProps(state: any) {
   return {
@@ -11,11 +11,14 @@ function mapStateToProps(state: any) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    handleAddItemTypeClick(itemTypeDto: ItemTypeDto) {
-      dispatch(itemTypeActions.addItemType(itemTypeDto));
-    },
-    handleAddItemClick(itemDto: ItemDto) {
+    addItem(itemDto: ItemDto) {
       console.log(itemDto);
+    },
+    addItemType(itemTypeDto: ItemTypeDto) {
+      dispatch(shopActions.addItemType(itemTypeDto));
+    },
+    startShop() {
+      dispatch(shopActions.startShop());
     }
   }
 }

@@ -1,19 +1,12 @@
 import { ItemTypeDto } from '../../dtos';
-import { itemTypeActions } from '../actions';
+import { itemTypeActions } from '../stateActions';
 
-const initialState: ItemTypeDto[] = [
-  { code: 'fruit' },
-  { code: 'vegetable' },
-  { code: 'meat' }
-];
+const initialState: ItemTypeDto[] = [];
 
 export default function(state: ItemTypeDto[] = initialState, action: any) {
   switch (action.type) {
-    case itemTypeActions.ADD_ITEM_TYPE: {
-      return [
-        ...state,
-        action.payload
-      ];
+    case itemTypeActions.SET: {
+      return [...action.payload];
     }
     default:
       return state;

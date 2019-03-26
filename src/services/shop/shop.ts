@@ -21,7 +21,7 @@ class Shop {
       return new Item(
         itemDto.code,
         new Money(itemDto.price),
-        matchingItemType || new ItemType('TEST')
+        matchingItemType
       );
     });
   }
@@ -29,6 +29,10 @@ class Shop {
   public get items(): Item[] { return this._items; }
 
   public get itemTypes(): ItemType[] { return this._itemTypes; }
+
+  public addItemType(itemTypeDto: ItemTypeDto) {
+    this._itemTypes.push(new ItemType(itemTypeDto.code));
+  }
 
   public getTotalCost(shoppingItems: ShoppingItem[], couponCode?: string): number {
     if (couponCode) {

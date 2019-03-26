@@ -1,43 +1,27 @@
 import React, { Component } from 'react';
-import { Shop } from '../../services';
 import { Item, ItemType } from '../../domain';
+import { NumberInput, TextInput } from '../';
+import { AppProps } from './App.props';
+import { ItemTypeDto } from '../../dtos';
 
-const NumberInput = ({ name, onChange }: any) => {
-  return (
-    <input type="number" name={name} id={name} onChange={onChange} required/>
-  );
-};
+class App extends Component {
+  private _itemTypeDto: ItemTypeDto = { code: '' };
 
-const TextInput = ({ name, onChange }: any) => {
-  return (
-    <input type="text" name={name} id={name} onChange={onChange} required/>
-  );
-};
+  constructor(props: any) {
+    super(props);
+    this.handleItemTypeFieldChange = this.handleItemTypeFieldChange.bind(this);
 
-class App extends Component<{}, { itemType: any, item: any }> {
-  private handleItemTypeFieldChange(event: any): void {
-    const { name, value } = event.target;
-
-    this.setState({
-      itemType: {
-        [name]: value
-      }
-    });
+    props.startShop();
   }
 
-  private handleItemFieldChange(event: any): void {
-    const { name, value } = event.target;
-
-    this.setState({
-      item: {
-        [name]: value
-      }
-    });
+  private handleItemTypeFieldChange({ target }: React.ChangeEvent<HTMLInputElement>): void {
+    this._itemTypeDto = {
+      code: target.value
+    };
   }
 
   render() {
-    const { handleAddItemTypeClick, handleAddItemClick, items, itemTypes }: any = this.props;
-    const shop = new Shop(itemTypes, items);
+    const { addItemType, items, itemTypes }: any = this.props;
 
     return (
       <div className='App'>
@@ -49,17 +33,17 @@ class App extends Component<{}, { itemType: any, item: any }> {
           </thead>
           <tbody>
             <tr>
-              <td><TextInput name="code" onChange={(event: any) => this.handleItemTypeFieldChange(event)}/></td>
+              <td><TextInput name="code" onChange={this.handleItemTypeFieldChange}/></td>
               <td>
                 <input
                   type="button"
                   value="Add Item Type"
-                  onClick={() => handleAddItemTypeClick(this.state.itemType)}
+                  onClick={() => addItemType(this._itemTypeDto)}
                   required
                 />
               </td>
             </tr>
-            {shop.itemTypes.map((itemType: ItemType) => (
+            {itemTypes.map((itemType: ItemType) => (
               <tr key={itemType.code}>
                 <td>{itemType.code}</td>
               </tr>
@@ -78,19 +62,18 @@ class App extends Component<{}, { itemType: any, item: any }> {
           </thead>
           <tbody>
             <tr>
-              <td><TextInput name="code" onChange={(event: any) => this.handleItemFieldChange(event)}/></td>
-              <td><NumberInput name="price" onChange={(event: any) => this.handleItemFieldChange(event)}/></td>
-              <td><TextInput name="type" onChange={(event: any) => this.handleItemFieldChange(event)}/></td>
+              <td><TextInput name="code"/></td>
+              <td><NumberInput name="price"/></td>
+              <td><TextInput name="type"/></td>
               <td>
                 <input
                   type="button"
                   value="Add Item"
-                  onClick={() => handleAddItemClick(this.state.item)}
                   required
                 />
               </td>
             </tr>
-            {shop.items.map((item: Item) => (
+            {items.map((item: Item) => (
               <tr key={item.code}>
                 <td>{item.code}</td>
                 <td>{item.price.value}</td>
