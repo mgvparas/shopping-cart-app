@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { ItemTypesTable, ItemsTable } from '..';
+import { BuyerItemsTable, Cart, ItemsTable, ItemTypesTable } from '..';
 import { AppProps } from './App.props';
+import './App.style.css';
 
 function App(props: AppProps) {
   useEffect(() => {
@@ -8,11 +9,18 @@ function App(props: AppProps) {
   });
 
   return (
-    <div className='App'>
-      <h1>Seller</h1>
-      <ItemTypesTable />
-      <br/>
-      <ItemsTable />
+    <div className='app'>
+      <div className='seller'>
+        <h1>Sell</h1>
+        <ItemTypesTable />
+        <br/>
+        <ItemsTable />
+      </div>
+      <div className='buyer'>
+        <h1>Buy</h1>
+        <BuyerItemsTable />
+        <Cart />
+      </div>
     </div>
   );
 }

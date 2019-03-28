@@ -2,13 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 import { Shop } from '../services';
-
-const logger = (store: { getState: () => void; }) => (next: (action: any) => void) => (action: any) => {
-  console.log('dispatching', action)
-  let result = next(action)
-  console.log('next state', store.getState())
-  return result;
-};
+import { logger } from './utils';
 
 const shop = new Shop(
   [

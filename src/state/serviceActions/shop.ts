@@ -1,6 +1,6 @@
-import { ItemTypeDto, ItemDto } from '../../dtos';
+import { ItemTypeDto, ItemDto, ShoppingItem } from '../../dtos';
 import { Shop } from '../../services';
-import { itemActions, itemTypeActions } from '../stateActions';
+import { cartActions, itemActions, itemTypeActions } from '../stateActions';
 
 export function addItem(itemDto: ItemDto) {
   return (dispatch: any, getState: Function, { shop }: { shop: Shop }) => {
@@ -15,6 +15,14 @@ export function addItemType(itemTypeDto: ItemTypeDto) {
     shop.addItemType(itemTypeDto);
 
     dispatch(itemTypeActions.set(shop.itemTypes));
+  };
+}
+
+export function getTotalCost(shoppingItems: ShoppingItem[]) {
+  return (dispatch: any, getState: Function, { shop }: { shop: Shop }) => {
+    const totalCost: number = shop.getTotalCost(shoppingItems);
+
+    dispatch(cartActions.setTotalCost(totalCost));
   };
 }
 

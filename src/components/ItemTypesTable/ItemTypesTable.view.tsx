@@ -16,12 +16,7 @@ function ItemTypesTable(props: ItemTypesTableProps) {
         <tr>
           <td><TextInput name="code" onChange={(e) => setCode(e.target.value)}/></td>
           <td>
-            <input
-              type="button"
-              value="Add Item Type"
-              onClick={() => props.addItemType({ code })}
-              required
-            />
+            <input type="button" value="Add Item Type" onClick={() => props.addItemType({ code })}/>
           </td>
         </tr>
         {props.itemTypes.map((itemType: ItemType) => (

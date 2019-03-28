@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TextInput, NumberInput } from '..';
-import { Item } from '../../domain';
+import { NumberInput, SelectInput, TextInput } from '..';
+import { Item, ItemType } from '../../domain';
 import { ItemsTableProps } from './ItemsTable.props';
 
 function ItemsTable(props: ItemsTableProps) {
@@ -22,14 +22,15 @@ function ItemsTable(props: ItemsTableProps) {
         <tr>
           <td><TextInput name="code" onChange={(e) => setCode(e.target.value)}/></td>
           <td><NumberInput name="price" onChange={(e) => setPrice(+e.target.value)}/></td>
-          <td><TextInput name="type" onChange={(e) => setTypeCode(e.target.value)}/></td>
           <td>
-            <input
-              type="button"
-              value="Add Item"
-              required
-              onClick={() => props.addItem({ code, price, typeCode })}
+            <SelectInput
+              name="type"
+              options={props.itemTypes.map((type: ItemType) => ({ label: type.code, value: type.code }))}
+              onChange={(e) => setTypeCode(e.target.value)}
             />
+          </td>
+          <td>
+            <input type="button" value="Add Item" onClick={() => props.addItem({ code, price, typeCode })}/>
           </td>
         </tr>
         {props.items.map((item: Item) => (

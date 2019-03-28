@@ -1,0 +1,12 @@
+.app {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.app .seller {
+  flex: 1;
+}
+
+.app .buyer {
+  flex: 1;
+}

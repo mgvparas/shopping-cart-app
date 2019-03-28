@@ -4,7 +4,8 @@ import { shopActions } from '../../state/serviceActions';
 
 function mapStateToProps(state: any) {
   return {
-    items: state.items
+    items: state.items,
+    itemTypes: state.itemTypes
   };
 }
 
