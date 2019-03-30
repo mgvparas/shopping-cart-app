@@ -1,8 +1,11 @@
 import { connect } from 'react-redux';
 
 function mapStateToProps(state: any) {
+  const { items, totalCost } = state.cart;
+
   return {
-    items: state.cart.items
+    items,
+    totalCost
   };
 }
 

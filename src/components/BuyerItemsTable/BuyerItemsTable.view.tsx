@@ -19,14 +19,18 @@ const BuyerItemsTable = (props: BuyerItemsTableProps) => {
               <td>{item.code}</td>
               <td>{item.price.value}</td>
               <td>
-                <input type="button" value="Add To Cart" onClick={() => {}}/>
+                <input
+                  type="button"
+                  value="Add To Cart"
+                  onClick={() => props.addToCart({ code: item.code, quantity: 1 })}
+                />
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )
+  );
 };
 
 export default BuyerItemsTable;

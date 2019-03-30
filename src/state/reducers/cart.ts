@@ -8,6 +8,12 @@ const initialState: CartState = {
 
 export default function(state: CartState = initialState, action: any) {
   switch (action.type) {
+    case cartActions.ADD_ITEM: {
+      return {
+        ...state,
+        items: [...state.items, action.payload]
+      };
+    }
     case cartActions.SET_TOTAL_COST: {
       return {
         ...state,

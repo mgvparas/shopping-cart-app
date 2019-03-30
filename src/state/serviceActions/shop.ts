@@ -18,8 +18,15 @@ export function addItemType(itemTypeDto: ItemTypeDto) {
   };
 }
 
+export function addToCart(shoppingItem: ShoppingItem) {
+  return (dispatch: any, getState: Function, { shop }: { shop: Shop }) => {
+    dispatch(cartActions.addItem(shoppingItem));
+  }
+}
+
 export function getTotalCost(shoppingItems: ShoppingItem[]) {
   return (dispatch: any, getState: Function, { shop }: { shop: Shop }) => {
+    getState()
     const totalCost: number = shop.getTotalCost(shoppingItems);
 
     dispatch(cartActions.setTotalCost(totalCost));
@@ -36,5 +43,6 @@ export function startShop() {
 export default {
   addItem,
   addItemType,
+  addToCart,
   startShop
 };
