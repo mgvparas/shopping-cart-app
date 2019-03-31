@@ -18,11 +18,18 @@ export function addItemType(itemTypeDto: ItemTypeDto) {
   };
 }
 
+//SRP violated
 export function addToCart(shoppingItem: ShoppingItem) {
   return (dispatch: any, getState: Function, { shop }: { shop: Shop }) => {
-    dispatch(cartActions.addItem(shoppingItem));
-
     const { cart } = getState();
+
+    const itemMatch = cart.items.find((item: ShoppingItem) => item.code === shoppingItem.code);
+    if (itemMatch) {
+      dispatch(cartActions.incrementQuantity(shoppingItem))
+    } else {
+      dispatch(cartActions.addItem(shoppingItem));
+    }
+
     const totalCost: number = shop.getTotalCost(cart.items);
     dispatch(cartActions.setTotalCost(totalCost));
   }

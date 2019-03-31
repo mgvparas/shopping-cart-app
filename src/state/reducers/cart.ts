@@ -1,5 +1,6 @@
 import { cartActions } from '../stateActions';
 import { CartState } from '../types';
+import ShoppingItem from '../../dtos/shoppingItem';
 
 const initialState: CartState = {
   items: [],
@@ -12,6 +13,18 @@ export default function(state: CartState = initialState, action: any) {
       return {
         ...state,
         items: [...state.items, action.payload]
+      };
+    }
+    case cartActions.INCREMENT_QUANTITY: {
+      const updatedItems = state.items.map((item: ShoppingItem) => {
+        return item.code === action.payload.code
+          ? { code: item.code, quantity: ++item.quantity }
+          : item;
+      });
+
+      return {
+        ...state,
+        items: updatedItems
       };
     }
     case cartActions.SET_TOTAL_COST: {
