@@ -17,7 +17,7 @@ export default function(state: CartState = initialState, action: any) {
     case cartActions.SET_TOTAL_COST: {
       return {
         ...state,
-        ...action.payload
+        totalCost: action.payload
       };
     }
     default:

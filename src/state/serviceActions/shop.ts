@@ -21,6 +21,10 @@ export function addItemType(itemTypeDto: ItemTypeDto) {
 export function addToCart(shoppingItem: ShoppingItem) {
   return (dispatch: any, getState: Function, { shop }: { shop: Shop }) => {
     dispatch(cartActions.addItem(shoppingItem));
+
+    const { cart } = getState();
+    const totalCost: number = shop.getTotalCost(cart.items);
+    dispatch(cartActions.setTotalCost(totalCost));
   }
 }
 
