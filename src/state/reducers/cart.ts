@@ -15,6 +15,18 @@ export default function(state: CartState = initialState, action: any) {
         items: [...state.items, action.payload]
       };
     }
+    case cartActions.DECREMENT_QUANTITY: {
+      const updatedItems = state.items.map((item: ShoppingItem) => {
+        return item.code === action.payload.code
+          ? { code: item.code, quantity: --item.quantity }
+          : item;
+      });
+
+      return {
+        ...state,
+        items: updatedItems
+      };
+    }
     case cartActions.INCREMENT_QUANTITY: {
       const updatedItems = state.items.map((item: ShoppingItem) => {
         return item.code === action.payload.code

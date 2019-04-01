@@ -18,7 +18,7 @@ const Cart = (props: CartProps) => {
             <tr key={item.code}>
               <td>{item.code}</td>
               <td>
-                <button>-</button>
+                <button onClick={() => props.decrementQuantity(item)}>-</button>
                 {item.quantity}
                 <button onClick={() => props.incrementQuantity(item)}>+</button>
               </td>

@@ -14,6 +14,10 @@ function mapStateToProps(state: any) {
 
 function mapDispatchToProps(dispatch: any) {// TODO: Use dispatch type
   return {
+    decrementQuantity(item: ShoppingItem) {
+      dispatch(cartActions.decrementQuantity(item));
+      dispatch(shopActions.computeTotalCost());
+    },
     incrementQuantity(item: ShoppingItem) {
       dispatch(cartActions.incrementQuantity(item));
       dispatch(shopActions.computeTotalCost());

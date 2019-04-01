@@ -10,6 +10,14 @@ function addItem(shoppingItem: ShoppingItem) {
   }
 }
 
+const DECREMENT_QUANTITY = `${namespace}/DECREMENT_QUANTITY`;
+function decrementQuantity(shoppingItem: ShoppingItem) {
+  return {
+    type: DECREMENT_QUANTITY,
+    payload: shoppingItem
+  }
+}
+
 const INCREMENT_QUANTITY = `${namespace}/INCREMENT_QUANTITY`;
 function incrementQuantity(shoppingItem: ShoppingItem) {
   return {
@@ -29,6 +37,8 @@ function setTotalCost(totalCost: number) {
 export default {
   ADD_ITEM,
   addItem,
+  DECREMENT_QUANTITY,
+  decrementQuantity,
   INCREMENT_QUANTITY,
   incrementQuantity,
   SET_TOTAL_COST,
