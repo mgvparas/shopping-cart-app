@@ -19,6 +19,7 @@ function App(props: AppProps) {
       <div className='buyer'>
         <h1>Buy</h1>
         <BuyerItemsTable />
+        <hr/>
         <Cart />
       </div>
     </div>
